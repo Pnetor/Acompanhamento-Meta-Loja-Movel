@@ -1,0 +1,25 @@
+{
+  "name": "Painel Loja Móvel",
+  "short_name": "Loja Móvel",
+  "description": "Acompanhamento de metas ponderadas da Loja Móvel — Canção Alimentos",
+  "start_url": "./Painel Loja Movel.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0B1826",
+  "theme_color": "#0B1826",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
