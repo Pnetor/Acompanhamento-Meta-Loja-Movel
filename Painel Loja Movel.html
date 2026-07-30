@@ -329,11 +329,11 @@
         </div>
         <div class="fig">
           <div class="fig-label">% Atingido</div>
-          <div class="fig-value">87%</div>
+          <div class="fig-value">90%</div>
         </div>
         <div class="fig">
           <div class="fig-label">Valor Final</div>
-          <div class="fig-value accent">R$ 2.596,42</div>
+          <div class="fig-value accent">R$ 2.710,06</div>
         </div>
       </div>
     </div>
@@ -345,9 +345,9 @@
   <div class="result-panel">
     <div class="result-left">
       <div class="r-label">Cálculo do Valor Final</div>
-      <div class="r-calc"><span>3.000</span> × <span>87%</span> = <b style="color:var(--text)">Valor Final</b></div>
+      <div class="r-calc"><span>3.000</span> × <span>90%</span> = <b style="color:var(--text)">Valor Final</b></div>
     </div>
-    <div class="result-value">R$ 2.596,42</div>
+    <div class="result-value">R$ 2.710,06</div>
   </div>
 
   <footer>ATUALIZADO PARA O VENDEDOR · CANÇÃO ALIMENTOS</footer>
@@ -355,12 +355,12 @@
 
 <script>
 const data = [
-  {name:"Faturamento", peso:50, meta:"R$ 145.000,00", realizado:"R$ 141.052,71", pct:97, pond:49},
-  {name:"Empanado de Peixe", peso:10, meta:"2.100", realizado:"1.778", pct:85, pond:8},
-  {name:"IQF", peso:10, meta:"3.000", realizado:"2.824", pct:94, pond:9},
-  {name:"Vegetais", peso:10, meta:"2.000", realizado:"1.248", pct:62, pond:6},
-  {name:"Alimentos preparados (MIX)", peso:10, meta:"6.000", realizado:"4.748", pct:79, pond:8},
-  {name:"Miúdos/BDJ", peso:10, meta:"2.000", realizado:"1.175", pct:59, pond:6},
+  {name:"Faturamento", peso:50, meta:"R$ 145.000,00", realizado:"R$ 145.626,06", pct:100, pond:50},
+  {name:"Empanado de Peixe", peso:10, meta:"2.100", realizado:"1.843", pct:88, pond:9},
+  {name:"IQF", peso:10, meta:"3.000", realizado:"3.191", pct:106, pond:11},
+  {name:"Vegetais", peso:10, meta:"2.000", realizado:"1.296", pct:65, pond:6},
+  {name:"Alimentos preparados (MIX)", peso:10, meta:"6.000", realizado:"4.897", pct:82, pond:8},
+  {name:"Miúdos/BDJ", peso:10, meta:"2.000", realizado:"1.213", pct:61, pond:6},
 ];
 
 function level(pct){
@@ -398,7 +398,7 @@ requestAnimationFrame(()=>{
     document.querySelectorAll('.ind-bar-fill').forEach(el=>{
       el.style.width = el.getAttribute('data-w') + '%';
     });
-    const finalPct = 87;
+    const finalPct = 90;
     const circumference = 565.48;
     const offset = circumference - (circumference * finalPct / 100);
     document.getElementById('gaugeArc').style.strokeDashoffset = offset;
