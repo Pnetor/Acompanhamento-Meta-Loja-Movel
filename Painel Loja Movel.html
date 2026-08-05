@@ -19,6 +19,7 @@
     --frost-dim:#3A6E80;
     --ok:#4FD1A5;
     --warn:#F2A93C;
+    --gold:#E8C468;
     --cold:#5B8CBF;
     --danger:#E8623F;
     --text:#EAF3FA;
@@ -41,14 +42,13 @@
 
   .wrap{max-width:920px; margin:0 auto;}
 
-  /* HEADER */
   header{
     display:flex;
     justify-content:space-between;
     align-items:flex-end;
     border-bottom:1px solid var(--line);
     padding-bottom:22px;
-    margin-bottom:30px;
+    margin-bottom:12px;
     flex-wrap:wrap;
     gap:16px;
   }
@@ -79,6 +79,12 @@
     line-height:1;
   }
   .subtitle{color:var(--muted); font-size:14px; margin-top:6px;}
+  .header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
   .period-tag{
     font-family:'Space Mono', monospace;
     font-size:12px;
@@ -88,8 +94,24 @@
     border-radius:100px;
     white-space:nowrap;
   }
+  #btnAtualizar{
+    font-family:'Space Mono', monospace; font-size:12px; letter-spacing:.04em;
+    padding:9px 16px; border-radius:100px; border:1px solid var(--line);
+    background:rgba(111,211,232,0.08); color:var(--frost); cursor:pointer;
+    display:flex; align-items:center; gap:8px; transition:.2s;
+  }
+  #btnAtualizar:hover{background:rgba(111,211,232,0.16); border-color:var(--frost);}
 
-  /* HERO GAUGE */
+  .updated-row{
+    display:flex; align-items:center; gap:8px;
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-bottom:26px;
+  }
+  .updated-row .dot{width:5px; height:5px; border-radius:50%; background:var(--muted);}
+  .updated-row b{color:var(--text);}
+
   .hero{
     display:grid;
     grid-template-columns:200px 1fr;
@@ -136,6 +158,20 @@
     color:var(--muted); text-transform:uppercase;
     margin-top:6px;
   }
+  .gauge-trend{
+    font-family:'Space Mono', monospace;
+    font-size:11px; font-weight:700;
+    margin-top:8px;
+    padding:3px 10px;
+    border-radius:100px;
+    display:none;
+    align-items:center;
+    gap:4px;
+  }
+  .gauge-trend.show{display:flex;}
+  .trend-up{color:var(--ok); background:rgba(79,209,165,0.12);}
+  .trend-down{color:var(--danger); background:rgba(232,98,63,0.12);}
+  .trend-flat{color:var(--muted); background:rgba(255,255,255,0.06);}
 
   .hero-info h2{
     font-family:'Oswald', sans-serif;
@@ -154,7 +190,6 @@
   .fig-value{font-family:'Space Mono', monospace; font-size:22px; font-weight:700;}
   .fig-value.accent{color:var(--ok);}
 
-  /* INDICATORS */
   .section-label{
     font-family:'Space Mono', monospace;
     font-size:11px; letter-spacing:.16em;
@@ -164,6 +199,14 @@
     display:flex; align-items:center; gap:10px;
   }
   .section-label::after{content:""; flex:1; height:1px; background:var(--line);}
+  .section-hint{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--muted);
+    text-transform:none;
+    letter-spacing:0;
+    white-space:nowrap;
+  }
 
   .indicators{display:flex; flex-direction:column; gap:14px; margin-bottom:36px;}
 
@@ -176,6 +219,21 @@
     grid-template-columns:1fr auto;
     gap:6px 18px;
     align-items:center;
+    position:relative;
+  }
+  .ind-card.is-lowest{
+    border-color:rgba(232,98,63,0.4);
+    background:linear-gradient(135deg, rgba(232,98,63,0.06), var(--panel-2));
+  }
+  .rank-badge{
+    position:absolute;
+    top:-9px; left:16px;
+    font-family:'Space Mono', monospace;
+    font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
+    background:var(--danger);
+    color:#fff;
+    padding:2px 10px;
+    border-radius:100px;
   }
   .ind-top{
     display:flex;
@@ -204,6 +262,7 @@
     background:rgba(255,255,255,0.06);
     border-radius:100px;
     overflow:hidden;
+    position:relative;
   }
   .ind-bar-fill{
     height:100%;
@@ -211,12 +270,20 @@
     width:0%;
     transition:width 1.2s cubic-bezier(.2,.8,.2,1);
   }
+  .ind-pct-wrap{
+    display:flex; align-items:center; gap:6px;
+    width:78px;
+    justify-content:flex-end;
+  }
   .ind-pct{
     font-family:'Space Mono', monospace;
     font-size:15px;
     font-weight:700;
-    width:48px;
     text-align:right;
+  }
+  .trend-arrow{
+    font-size:12px;
+    font-weight:700;
   }
   .ind-detail{
     grid-column:1 / -1;
@@ -236,11 +303,22 @@
   .lvl-ok{color:var(--ok);}
   .lvl-warn{color:var(--warn);}
   .lvl-low{color:var(--danger);}
+  .lvl-gold{color:var(--gold);}
   .bar-ok{background:linear-gradient(90deg, var(--ok), #7EE8C6);}
   .bar-warn{background:linear-gradient(90deg, var(--warn), #F7C978);}
   .bar-low{background:linear-gradient(90deg, var(--danger), #F28E6C);}
+  .bar-gold{background:linear-gradient(90deg, var(--gold), #F7E3A8); box-shadow:0 0 10px rgba(232,196,104,0.5);}
 
-  /* FOOTER RESULT */
+  .excess-badge{
+    font-family:'Space Mono', monospace;
+    font-size:9.5px; font-weight:700;
+    color:var(--deep);
+    background:var(--gold);
+    padding:1px 6px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+
   .result-panel{
     background:linear-gradient(135deg, rgba(79,209,165,0.10), rgba(111,211,232,0.05));
     border:1px solid rgba(79,209,165,0.28);
@@ -281,33 +359,132 @@
     letter-spacing:.06em;
   }
 
+  @keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+
+  /* SKELETON LOADING */
+  .skeleton{
+    background:linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.09) 37%, rgba(255,255,255,0.04) 63%);
+    background-size:400% 100%;
+    animation:skeleton-wave 1.4s ease-in-out infinite;
+    border-radius:8px;
+  }
+  @keyframes skeleton-wave{ 0%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+  #appContent{opacity:0; transition:opacity .4s ease;}
+  #appContent.ready{opacity:1;}
+  #skeletonWrap{max-width:920px; margin:0 auto; padding-top:6px;}
+  .sk-line{height:16px; margin-bottom:10px;}
+  .sk-hero{height:230px; border-radius:18px; margin-bottom:28px;}
+  .sk-card{height:96px; border-radius:14px; margin-bottom:14px;}
+
+  /* PERIOD PROGRESS */
+  .period-progress{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Mono', monospace; font-size:11px; color:var(--muted);
+    margin-top:4px;
+  }
+  .period-progress-track{
+    width:90px; height:5px; border-radius:100px;
+    background:rgba(255,255,255,0.08); overflow:hidden;
+  }
+  .period-progress-fill{
+    height:100%; border-radius:100px;
+    background:linear-gradient(90deg, var(--frost), var(--ok));
+  }
+
+  /* SHARE / PRINT BUTTONS */
+  #btnCompartilhar, #btnImprimir{
+    font-family:'Space Mono', monospace; font-size:12px; letter-spacing:.04em;
+    padding:9px 16px; border-radius:100px; border:1px solid var(--line);
+    background:rgba(111,211,232,0.08); color:var(--frost); cursor:pointer;
+    display:flex; align-items:center; gap:8px; transition:.2s;
+  }
+  #btnCompartilhar:hover, #btnImprimir:hover{background:rgba(111,211,232,0.16); border-color:var(--frost);}
+
+  /* SPARKLINE */
+  .sparkline-wrap{
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .sparkline-label{
+    font-family:'Space Mono', monospace; font-size:10px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:8px;
+  }
+  .sparkline-svg{display:block; width:100%; height:44px;}
+
+  /* NOTE / OBSERVATION */
+  .ind-note{
+    grid-column:1 / -1;
+    font-size:12px;
+    color:var(--frost);
+    background:rgba(111,211,232,0.06);
+    border-left:2px solid var(--frost);
+    padding:8px 12px;
+    border-radius:0 8px 8px 0;
+    font-style:italic;
+  }
+
+  /* PRINT MODE */
+  @media print{
+    body{background:#fff !important; color:#111 !important; padding:10px !important;}
+    .header-actions, #btnAtualizar, #btnCompartilhar, #btnImprimir, footer{display:none !important;}
+    .hero, .ind-card, .result-panel{
+      background:#fff !important; border:1px solid #ccc !important;
+      box-shadow:none !important; page-break-inside:avoid;
+    }
+    h1, .gauge-num, .result-value, .ind-name{color:#111 !important; -webkit-text-fill-color:#111 !important;}
+    .subtitle, .fig-label, .ind-weight, .muted, .gauge-label{color:#555 !important;}
+    .gauge-fg, .ind-bar-fill{filter:none !important;}
+    .rank-badge{background:#c0392b !important;}
+  }
+
   @media(max-width:640px){
     .hero{grid-template-columns:1fr; text-align:center;}
     .gauge-holder{margin:0 auto;}
     .hero-figures{justify-content:center;}
     .ind-detail{justify-content:center; text-align:center;}
     .ind-ponderado{margin-left:0;}
-  #btnAtualizar:hover{background:rgba(111,211,232,0.16) !important; border-color:var(--frost) !important;}
+    header{justify-content:center; text-align:center;}
+    .updated-row{justify-content:center;}
+    .period-progress{justify-content:center;}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div id="skeletonWrap">
+  <div class="skeleton sk-line" style="width:220px; height:12px;"></div>
+  <div class="skeleton sk-line" style="width:320px; height:40px; margin-top:8px;"></div>
+  <div class="skeleton sk-hero"></div>
+  <div class="skeleton sk-card"></div>
+  <div class="skeleton sk-card"></div>
+  <div class="skeleton sk-card"></div>
+</div>
+<div class="wrap" id="appContent">
 
   <header>
     <div>
       <div class="brand-eyebrow">Canção Alimentos · Acompanhamento de Meta</div>
       <h1>Loja Móvel</h1>
       <div class="subtitle">Painel de indicadores ponderados — resultado do período</div>
+      <div class="period-progress" id="periodProgress" style="display:none;">
+        <span id="periodProgressText"></span>
+        <div class="period-progress-track"><div class="period-progress-fill" id="periodProgressFill" style="width:0%"></div></div>
+      </div>
     </div>
-    <div class="period-tag">GTF · Filial 01052 — Apucarana</div>
-    <button id="btnAtualizar" onclick="atualizarApp()" style="
-      font-family:'Space Mono', monospace; font-size:12px; letter-spacing:.04em;
-      padding:9px 16px; border-radius:100px; border:1px solid var(--line);
-      background:rgba(111,211,232,0.08); color:var(--frost); cursor:pointer;
-      display:flex; align-items:center; gap:8px; transition:.2s;">
-      <span id="btnAtualizarIcon">⟳</span> Atualizar
-    </button>
+    <div class="header-actions">
+      <div class="period-tag">GTF · Filial 01052 — Apucarana</div>
+      <button id="btnCompartilhar" onclick="compartilhar()">🔗 Compartilhar</button>
+      <button id="btnImprimir" onclick="window.print()">🖨️ Imprimir</button>
+      <button id="btnAtualizar" onclick="atualizarApp()">
+        <span id="btnAtualizarIcon">⟳</span> Atualizar
+      </button>
+    </div>
   </header>
+
+  <div class="updated-row">
+    <span class="dot"></span>
+    <span>Atualizado em: <b id="lastUpdatedText">—</b></span>
+  </div>
 
   <div class="hero">
     <div class="gauge-holder">
@@ -318,6 +495,7 @@
       <div class="gauge-center">
         <div class="gauge-num" id="gaugeNum">0%</div>
         <div class="gauge-label">Resultado Final</div>
+        <div class="gauge-trend" id="gaugeTrend"></div>
       </div>
     </div>
     <div class="hero-info">
@@ -329,81 +507,272 @@
         </div>
         <div class="fig">
           <div class="fig-label">% Atingido</div>
-          <div class="fig-value">91%</div>
+          <div class="fig-value">3%</div>
         </div>
         <div class="fig">
           <div class="fig-label">Valor Final</div>
-          <div class="fig-value accent">R$ 2.743,75</div>
+          <div class="fig-value accent">R$ 83,09</div>
         </div>
+      </div>
+      <div class="sparkline-wrap" id="sparklineWrap" style="display:none;">
+        <div class="sparkline-label">Evolução do Resultado Final</div>
+        <svg class="sparkline-svg" id="sparklineSvg" viewBox="0 0 300 44" preserveAspectRatio="none"></svg>
       </div>
     </div>
   </div>
 
-  <div class="section-label">Indicadores</div>
+  <div class="section-label">Indicadores <span class="section-hint">▲/▼ vs. atualização anterior</span></div>
   <div class="indicators" id="indicatorsList"></div>
 
   <div class="result-panel">
     <div class="result-left">
       <div class="r-label">Cálculo do Valor Final</div>
-      <div class="r-calc"><span>3.000</span> × <span>91%</span> = <b style="color:var(--text)">Valor Final</b></div>
+      <div class="r-calc"><span>3.000</span> × <span>3%</span> = <b style="color:var(--text)">Valor Final</b></div>
     </div>
-    <div class="result-value">R$ 2.743,75</div>
+    <div class="result-value">R$ 83,09</div>
   </div>
 
   <footer>ATUALIZADO PARA O VENDEDOR · CANÇÃO ALIMENTOS</footer>
 </div>
 
 <script>
+const ULTIMA_ATUALIZACAO = "05/08/2026 - 09:40";
+const VALOR_BASE = 3000;
+const RESULTADO_FINAL = 3;
+const VALOR_FINAL = 83.09;
+
+// Progresso do período — calcula automaticamente os dias ÚTEIS (seg a sex)
+// já passados vs. o total de dias úteis do mês atual. Não precisa editar
+// nada aqui, ele se atualiza sozinho todo mês. Para ocultar, troque
+// MOSTRAR_PROGRESSO_PERIODO para false.
+const MOSTRAR_PROGRESSO_PERIODO = true;
+
+function calcularDiasUteisPeriodo(){
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  const mes = hoje.getMonth();
+  const ultimoDia = new Date(ano, mes + 1, 0).getDate();
+
+  let totalUteis = 0;
+  let uteisAteHoje = 0;
+
+  for(let dia = 1; dia <= ultimoDia; dia++){
+    const d = new Date(ano, mes, dia);
+    const diaSemana = d.getDay(); // 0=domingo, 6=sábado
+    const util = diaSemana !== 0 && diaSemana !== 6;
+    if(util){
+      totalUteis++;
+      if(dia <= hoje.getDate()) uteisAteHoje++;
+    }
+  }
+  return {uteisAteHoje, totalUteis};
+}
+
 const data = [
-  {name:"Faturamento", peso:50, meta:"R$ 145.000,00", realizado:"R$ 147.393,53", pct:102, pond:51},
-  {name:"Empanado de Peixe", peso:10, meta:"2.100", realizado:"1.856", pct:88, pond:9},
-  {name:"IQF", peso:10, meta:"3.000", realizado:"3.226", pct:108, pond:11},
-  {name:"Vegetais", peso:10, meta:"2.000", realizado:"1.325", pct:66, pond:7},
-  {name:"Alimentos preparados (MIX)", peso:10, meta:"6.000", realizado:"4.924", pct:82, pond:8},
-  {name:"Miúdos/BDJ", peso:10, meta:"2.000", realizado:"1.242", pct:62, pond:6},
+  {name:"Faturamento", peso:50, meta:"R$ 150.000,00", realizado:"R$ 4.112,48", pct:3, pond:1, obs:""},
+  {name:"Empanado de Peixe", peso:10, meta:"2.100", realizado:"16", pct:1, pond:0, obs:""},
+  {name:"IQF", peso:10, meta:"3.500", realizado:"124", pct:4, pond:0, obs:""},
+  {name:"Vegetais", peso:10, meta:"1.700", realizado:"51", pct:3, pond:0, obs:""},
+  {name:"Alimentos preparados (MIX)", peso:10, meta:"5.500", realizado:"89", pct:2, pond:0, obs:""},
+  {name:"Miúdos/BDJ", peso:10, meta:"1.500", realizado:"76", pct:5, pond:1, obs:""},
 ];
 
+const HIST_KEY = 'painel-loja-movel-historico';
+const HIST_SERIE_KEY = 'painel-loja-movel-serie';
+const MAX_HISTORICO = 8;
+
 function level(pct){
+  if(pct >= 100) return {cls:'gold', bar:'bar-gold'};
   if(pct >= 80) return {cls:'ok', bar:'bar-ok'};
   if(pct >= 60) return {cls:'warn', bar:'bar-warn'};
   return {cls:'low', bar:'bar-low'};
 }
 
+function trendArrow(current, previous){
+  if(previous === undefined || previous === null) return {html:''};
+  const delta = current - previous;
+  if(delta > 0) return {html:'<span class="trend-arrow" style="color:var(--ok)">▲</span>'};
+  if(delta < 0) return {html:'<span class="trend-arrow" style="color:var(--danger)">▼</span>'};
+  return {html:'<span class="trend-arrow" style="color:var(--muted)">—</span>'};
+}
+
+let historico = null;
+try{
+  const saved = localStorage.getItem(HIST_KEY);
+  if(saved) historico = JSON.parse(saved);
+}catch(e){}
+
+const prevIndicadores = (historico && historico.indicadores) ? historico.indicadores : {};
+const prevResultado = historico ? historico.resultadoFinal : undefined;
+
+document.getElementById('lastUpdatedText').textContent = ULTIMA_ATUALIZACAO;
+
+// progresso do período
+if(MOSTRAR_PROGRESSO_PERIODO){
+  const {uteisAteHoje, totalUteis} = calcularDiasUteisPeriodo();
+  const pct = Math.min(100, Math.round((uteisAteHoje / totalUteis) * 100));
+  document.getElementById('periodProgress').style.display = 'flex';
+  document.getElementById('periodProgressText').textContent = `Dia útil ${uteisAteHoje} de ${totalUteis}`;
+  document.getElementById('periodProgressFill').style.width = pct + '%';
+}
+
+const secundarios = data.filter(d => d.name !== "Faturamento");
+const piorPct = Math.min(...secundarios.map(d => d.pct));
+
 const list = document.getElementById('indicatorsList');
 data.forEach(d=>{
   const lv = level(d.pct);
+  const arrow = trendArrow(d.pct, prevIndicadores[d.name]);
+  const isLowest = d.name !== "Faturamento" && d.pct === piorPct;
+  const barWidth = Math.min(d.pct, 100);
+  const excessBadge = d.pct > 100 ? ('<span class="excess-badge">+' + (d.pct - 100) + '% acima da meta</span>') : '';
+  const noteHtml = d.obs ? `<div class="ind-note">💬 ${d.obs}</div>` : '';
+
   const card = document.createElement('div');
-  card.className = 'ind-card';
+  card.className = 'ind-card' + (isLowest ? ' is-lowest' : '');
   card.innerHTML = `
+    ${isLowest ? '<div class="rank-badge">Foco da semana</div>' : ''}
     <div class="ind-top">
       <div class="ind-name">${d.name}</div>
       <div class="ind-weight">Peso ${d.peso}%</div>
     </div>
     <div class="ind-bar-row">
-      <div class="ind-bar-track"><div class="ind-bar-fill ${lv.bar}" data-w="${d.pct}"></div></div>
-      <div class="ind-pct lvl-${lv.cls}">${d.pct}%</div>
+      <div class="ind-bar-track"><div class="ind-bar-fill ${lv.bar}" data-w="${barWidth}"></div></div>
+      <div class="ind-pct-wrap">
+        ${arrow.html}
+        <div class="ind-pct lvl-${lv.cls}">${d.pct}%</div>
+      </div>
     </div>
     <div class="ind-detail">
       <span>Meta: <b>${d.meta}</b></span>
       <span>Realizado: <b>${d.realizado}</b></span>
+      ${excessBadge}
       <span class="ind-ponderado">Ponderado: ${d.pond}%</span>
     </div>
+    ${noteHtml}
   `;
   list.appendChild(card);
 });
 
-// animate bars
+const gaugeTrendEl = document.getElementById('gaugeTrend');
+if(prevResultado !== undefined){
+  const delta = RESULTADO_FINAL - prevResultado;
+  gaugeTrendEl.classList.add('show');
+  if(delta > 0){
+    gaugeTrendEl.classList.add('trend-up');
+    gaugeTrendEl.innerHTML = '▲ +' + delta + 'pts vs. anterior';
+  }else if(delta < 0){
+    gaugeTrendEl.classList.add('trend-down');
+    gaugeTrendEl.innerHTML = '▼ ' + delta + 'pts vs. anterior';
+  }else{
+    gaugeTrendEl.classList.add('trend-flat');
+    gaugeTrendEl.innerHTML = '— igual à anterior';
+  }
+}
+
+// ---- histórico de série (últimas atualizações) para o sparkline ----
+let serie = [];
+try{
+  const savedSerie = localStorage.getItem(HIST_SERIE_KEY);
+  if(savedSerie) serie = JSON.parse(savedSerie);
+}catch(e){}
+
+// evita duplicar entrada se a página só foi recarregada com o mesmo timestamp
+if(!serie.length || serie[serie.length - 1].timestamp !== ULTIMA_ATUALIZACAO){
+  serie.push({timestamp: ULTIMA_ATUALIZACAO, resultadoFinal: RESULTADO_FINAL});
+  if(serie.length > MAX_HISTORICO) serie = serie.slice(serie.length - MAX_HISTORICO);
+}
+
+function desenharSparkline(pontos){
+  if(pontos.length < 2) return;
+  document.getElementById('sparklineWrap').style.display = 'block';
+  const svg = document.getElementById('sparklineSvg');
+  const w = 300, h = 44, pad = 4;
+  const vals = pontos.map(p => p.resultadoFinal);
+  const min = Math.min(...vals, 60);
+  const max = Math.max(...vals, 100);
+  const range = (max - min) || 1;
+
+  const stepX = (w - pad*2) / (pontos.length - 1);
+  const coords = vals.map((v,i) => {
+    const x = pad + i*stepX;
+    const y = h - pad - ((v - min) / range) * (h - pad*2);
+    return [x,y];
+  });
+
+  const linePath = coords.map((c,i) => (i===0 ? 'M' : 'L') + c[0].toFixed(1) + ',' + c[1].toFixed(1)).join(' ');
+  const areaPath = linePath + ` L${coords[coords.length-1][0].toFixed(1)},${h} L${coords[0][0].toFixed(1)},${h} Z`;
+
+  const dots = coords.map((c,i) => {
+    const isLast = i === coords.length - 1;
+    return `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${isLast ? 3.2 : 2}" fill="${isLast ? '#4FD1A5' : '#6FD3E8'}" />`;
+  }).join('');
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="sparkFade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#6FD3E8" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#6FD3E8" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path d="${areaPath}" fill="url(#sparkFade)" stroke="none"/>
+    <path d="${linePath}" fill="none" stroke="#6FD3E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    ${dots}
+  `;
+}
+desenharSparkline(serie);
+
+try{
+  const snapshotIndicadores = {};
+  data.forEach(d => snapshotIndicadores[d.name] = d.pct);
+  localStorage.setItem(HIST_KEY, JSON.stringify({
+    timestamp: ULTIMA_ATUALIZACAO,
+    resultadoFinal: RESULTADO_FINAL,
+    valorFinal: VALOR_FINAL,
+    indicadores: snapshotIndicadores
+  }));
+  localStorage.setItem(HIST_SERIE_KEY, JSON.stringify(serie));
+}catch(e){}
+
+// compartilhamento (Web Share API com fallback para copiar link)
+async function compartilhar(){
+  const url = window.location.href;
+  const btn = document.getElementById('btnCompartilhar');
+  if(navigator.share){
+    try{
+      await navigator.share({ title: 'Painel Loja Móvel — Canção Alimentos', url });
+      return;
+    }catch(e){ /* usuário cancelou ou não suportado, cai no fallback */ }
+  }
+  try{
+    await navigator.clipboard.writeText(url);
+    const original = btn.innerHTML;
+    btn.innerHTML = '✅ Link copiado!';
+    setTimeout(()=>{ btn.innerHTML = original; }, 2000);
+  }catch(e){
+    alert('Link do painel:\n' + url);
+  }
+}
+
+// revela o conteúdo e remove o skeleton
+function revelarConteudo(){
+  document.getElementById('skeletonWrap').remove();
+  document.getElementById('appContent').classList.add('ready');
+}
+
 requestAnimationFrame(()=>{
   setTimeout(()=>{
+    revelarConteudo();
     document.querySelectorAll('.ind-bar-fill').forEach(el=>{
       el.style.width = el.getAttribute('data-w') + '%';
     });
-    const finalPct = 91;
     const circumference = 565.48;
-    const offset = circumference - (circumference * finalPct / 100);
+    const offset = circumference - (circumference * Math.min(RESULTADO_FINAL,100) / 100);
     document.getElementById('gaugeArc').style.strokeDashoffset = offset;
-    document.getElementById('gaugeNum').textContent = finalPct + '%';
-  }, 150);
+    document.getElementById('gaugeNum').textContent = RESULTADO_FINAL + '%';
+    const gaugeColor = RESULTADO_FINAL >= 100 ? 'var(--gold)' : RESULTADO_FINAL >= 80 ? 'var(--ok)' : RESULTADO_FINAL >= 60 ? 'var(--warn)' : 'var(--danger)';
+    document.getElementById('gaugeArc').style.stroke = gaugeColor;
+  }, 250);
 });
 </script>
 
@@ -422,24 +791,19 @@ async function atualizarApp(){
   icon.style.animation = 'spin 0.8s linear infinite';
 
   try{
-    // limpa todos os caches do service worker
     if ('caches' in window){
       const keys = await caches.keys();
       await Promise.all(keys.map(k => caches.delete(k)));
     }
-    // força o service worker a buscar a versão nova
     if ('serviceWorker' in navigator){
       const regs = await navigator.serviceWorker.getRegistrations();
       await Promise.all(regs.map(r => r.update()));
     }
   }catch(e){}
 
-  // recarrega ignorando cache do navegador
   window.location.reload(true);
 }
 </script>
-<style>
-@keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
-</style>
+
 </body>
 </html>
