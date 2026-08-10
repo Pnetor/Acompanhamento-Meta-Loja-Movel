@@ -507,11 +507,11 @@
         </div>
         <div class="fig">
           <div class="fig-label">% Atingido</div>
-          <div class="fig-value">3%</div>
+          <div class="fig-value">28%</div>
         </div>
         <div class="fig">
           <div class="fig-label">Valor Final</div>
-          <div class="fig-value accent">R$ 83,09</div>
+          <div class="fig-value accent">R$ 826,14</div>
         </div>
       </div>
       <div class="sparkline-wrap" id="sparklineWrap" style="display:none;">
@@ -527,19 +527,19 @@
   <div class="result-panel">
     <div class="result-left">
       <div class="r-label">Cálculo do Valor Final</div>
-      <div class="r-calc"><span>3.000</span> × <span>3%</span> = <b style="color:var(--text)">Valor Final</b></div>
+      <div class="r-calc"><span>3.000</span> × <span>28%</span> = <b style="color:var(--text)">Valor Final</b></div>
     </div>
-    <div class="result-value">R$ 83,09</div>
+    <div class="result-value">R$ 826,14</div>
   </div>
 
   <footer>ATUALIZADO PARA O VENDEDOR · CANÇÃO ALIMENTOS</footer>
 </div>
 
 <script>
-const ULTIMA_ATUALIZACAO = "05/08/2026 - 09:40";
+const ULTIMA_ATUALIZACAO = "07/08/2026 - 10:15";
 const VALOR_BASE = 3000;
-const RESULTADO_FINAL = 3;
-const VALOR_FINAL = 83.09;
+const RESULTADO_FINAL = 28;
+const VALOR_FINAL = 826.14;
 
 // Progresso do período — calcula automaticamente os dias ÚTEIS (seg a sex)
 // já passados vs. o total de dias úteis do mês atual. Não precisa editar
@@ -569,12 +569,12 @@ function calcularDiasUteisPeriodo(){
 }
 
 const data = [
-  {name:"Faturamento", peso:50, meta:"R$ 150.000,00", realizado:"R$ 4.112,48", pct:3, pond:1, obs:""},
-  {name:"Empanado de Peixe", peso:10, meta:"2.100", realizado:"16", pct:1, pond:0, obs:""},
-  {name:"IQF", peso:10, meta:"3.500", realizado:"124", pct:4, pond:0, obs:""},
-  {name:"Vegetais", peso:10, meta:"1.700", realizado:"51", pct:3, pond:0, obs:""},
-  {name:"Alimentos preparados (MIX)", peso:10, meta:"5.500", realizado:"89", pct:2, pond:0, obs:""},
-  {name:"Miúdos/BDJ", peso:10, meta:"1.500", realizado:"76", pct:5, pond:1, obs:""},
+  {name:"Faturamento", peso:50, meta:"R$ 150.000,00", realizado:"R$ 44.188,87", pct:29, pond:15, obs:""},
+  {name:"Empanado de Peixe", peso:10, meta:"2.100", realizado:"336", pct:16, pond:2, obs:""},
+  {name:"IQF", peso:10, meta:"3.500", realizado:"1.082", pct:31, pond:3, obs:""},
+  {name:"Vegetais", peso:10, meta:"1.700", realizado:"411", pct:24, pond:2, obs:""},
+  {name:"Alimentos preparados (MIX)", peso:10, meta:"5.500", realizado:"1.338", pct:24, pond:2, obs:""},
+  {name:"Miúdos/BDJ", peso:10, meta:"1.500", realizado:"490", pct:33, pond:3, obs:""},
 ];
 
 const HIST_KEY = 'painel-loja-movel-historico';
